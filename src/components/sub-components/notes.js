@@ -29,13 +29,20 @@ const style = {
 export default class Notes extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { notes: [], title: "", note: "", itter: 1, open: false };
+    this.state = {
+      notes: [],
+      title: "",
+      note: "",
+      itter: 1,
+      open: false,
+      toDisplay: { title: "", note: "" },
+    };
   }
   render() {
     const audio = (variable) => {
       new Audio(variable).play();
     };
-    const handleOpen = () => this.setState({ open: true });
+
     const handleClose = () => this.setState({ open: false });
     if (this.state.itter == 1) {
       if (window.localStorage.getItem("notes")) {
@@ -121,48 +128,16 @@ export default class Notes extends React.Component {
                 <Button
                   variant="contained"
                   style={{ alingSelf: "flex-end", width: "7rem" }}
-                  onClick={handleOpen}
+                  onClick={() => {
+                    this.setState({ open: true });
+                    this.setState({
+                      toDisplay: { title: val.title, note: val.note },
+                    });
+                  }}
                 >
                   <OpenInFullIcon />
                 </Button>
-                <Modal
-                  style={{ overflow: "scroll" }}
-                  open={this.state.open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Fade in={this.state.open}>
-                    <Box sx={style}>
-                      <Button
-                        style={{
-                          marginTop: "1rem",
-                          marginBottom: "1rem",
-                          // width: "7rem",
-                        }}
-                        variant="contained"
-                        color="warning"
-                        onClick={handleClose}
-                      >
-                        <CloseIcon />
-                      </Button>
 
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        {val.title}
-                      </Typography>
-                      <ReactMarkdown
-                        id="modal-modal-description"
-                        sx={{ mt: 2 }}
-                      >
-                        {val.note}
-                      </ReactMarkdown>
-                    </Box>
-                  </Fade>
-                </Modal>
                 <Button
                   color="error"
                   style={{ width: "7rem" }}
@@ -186,6 +161,37 @@ export default class Notes extends React.Component {
               </Grid>
             );
           })}
+          <Modal
+            style={{ overflow: "scroll" }}
+            open={this.state.open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Fade in={this.state.open}>
+              <Box sx={style}>
+                <Button
+                  style={{
+                    marginTop: "1rem",
+                    marginBottom: "1rem",
+                    // width: "7rem",
+                  }}
+                  variant="contained"
+                  color="warning"
+                  onClick={handleClose}
+                >
+                  <CloseIcon />
+                </Button>
+
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  {this.state.toDisplay.title}
+                </Typography>
+                <ReactMarkdown id="modal-modal-description" sx={{ mt: 2 }}>
+                  {this.state.toDisplay.note}
+                </ReactMarkdown>
+              </Box>
+            </Fade>
+          </Modal>
         </Grid>
       </div>
     );

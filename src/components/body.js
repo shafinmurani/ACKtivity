@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Todo from "./sub-components/todo";
 import Notes from "./sub-components/notes";
+import Flashcards from "./sub-components/flashcards";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -77,7 +78,7 @@ export default function Body() {
         <Notes />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <Flashcards />
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four

@@ -60,7 +60,7 @@ export default function Todo() {
   }
   if (i == 3) {
     if (isNaN(percent)) {
-      setPercent(0);
+      setPercent(100);
     }
     setI(4);
   }
@@ -89,7 +89,7 @@ export default function Todo() {
       />
       <Button
         variant="contained"
-        style={{ width: "8rem", alignSelf: "flex-start" }}
+        style={{ paddingInline: "2rem", alignSelf: "flex-start" }}
         startIcon={<AddIcon />}
         onClick={() => {
           setI(2);

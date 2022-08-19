@@ -54,7 +54,9 @@ export default class Notes extends React.Component {
     }
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <Typography>Note Keeper</Typography>
+        <Typography color="primary" variant="button">
+          Note Keeper
+        </Typography>
         <TextField
           defaultValue={this.state.title}
           onChange={(e) => {
@@ -70,10 +72,11 @@ export default class Notes extends React.Component {
           label="Note(Markdown)"
           minRows={4}
           multiline
+          maxRows={10}
         />
         <Button
           variant="contained"
-          style={{ width: "8rem", alignSelf: "flex-start" }}
+          style={{ paddingInline: "2rem", alignSelf: "flex-start" }}
           startIcon={<AddIcon />}
           onClick={() => {
             audio(clickAudio);
@@ -92,7 +95,7 @@ export default class Notes extends React.Component {
             // console.log(this.state.notes);
           }}
         >
-          Add
+          Add note
         </Button>
         <Grid
           container
@@ -124,7 +127,7 @@ export default class Notes extends React.Component {
                 item
                 lg
               >
-                <Typography variant="h6">{val.title}</Typography>
+                <Typography variant="button">{val.title}</Typography>
                 <Button
                   variant="contained"
                   style={{ alingSelf: "flex-end", width: "7rem" }}
